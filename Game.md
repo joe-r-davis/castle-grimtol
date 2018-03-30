@@ -9,7 +9,7 @@ Once you `sneak` through the tunnel you will need to find a way to disguise your
 Good Luck brave one.
 
 
-### Gameplay
+### GameControl
 
 Castle Grimtol is a simple text based adventure game. You will need to know the following commands to play.
 
