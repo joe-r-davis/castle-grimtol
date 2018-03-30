@@ -137,10 +137,11 @@ namespace CastleGrimtol.Project
             //car directions
             garage.Directions.Add("car", deathbycar);
 
-            Item computer = new Item("Computer", "Your laptop for school");
-            Item powerCable = new Item("Power Cable", "Won't work without it!");
-            Item sandwich = new Item("Sandwich", "Time to level up!");
-            Item wrench = new Item("Wrench", "Time to level up!");
+            Item computer = new Item("computer", "Your laptop for school");
+            Item powerCable = new Item("powercable", "Won't work without it!");
+            Item sandwich = new Item("sandwich", "Time to level up!");
+            Item wrench = new Item("wrench", "Time to level up!");
+
 
 
             bedroom.Items.Add(computer);
@@ -164,59 +165,9 @@ namespace CastleGrimtol.Project
             }
             else
             {
-                System.Console.WriteLine("what there is no " + foundItem.Name);
+                System.Console.WriteLine("what there is no item found by that name");
+                                                        // joe removded + foundItem.Name
             }
-
-
-            //     if (CurrentRoom.Items.Count > 0)
-            //     {
-            //         Console.WriteLine("Enter 1 to add to Inventory or something else and Crash the Game (a Dumb way to lose! But it still counts!)");
-            //         for (int i = 0; i < CurrentRoom.Items.Count; i++)
-            //         {
-            //             System.Console.WriteLine($@"
-            // ******************************************************************************************
-            //     **** {i + 1}. Item Name:  {CurrentRoom.Items[i].Name} *|*|* Item Description: {CurrentRoom.Items[i].Description} ****
-            // ******************************************************************************************
-
-            //             ");
-            //         }
-            //         // Pick up the item in the room. In order to list it use int
-            //         int pickedUpItem;
-            //         string userPickedItem = Console.ReadLine();
-            //         int.TryParse(userPickedItem, out pickedUpItem);
-            //         if (pickedUpItem > -1 && pickedUpItem <= CurrentRoom.Items.Count)
-            //         {
-            //             CurrentPlayer.Inventory.Add(CurrentRoom.Items[pickedUpItem - 1]);
-            //             System.Console.WriteLine($@"
-            // ***********************************************************************************    
-            // *  You have added {CurrentRoom.Items[pickedUpItem - 1].Name} to your Inventory.  *
-            // *  Good job not losing on a technicality!  *
-            // ***********************************************************************************
-            // ");
-            //             //Removes the item from the room
-            //             CurrentRoom.Items.RemoveAt((pickedUpItem - 1));
-            //         }
-            //         else
-            //         {
-            //             System.Console.WriteLine(@"
-            // ******************************************
-            // *  Sorry please pick a valid selection.  *
-            // ******************************************
-
-            // ");
-
-            //         }
-            //     }
-            //     else
-            //     {
-            //         System.Console.WriteLine(@"
-            // ******************************************
-            // *  Sorry nothing to pick up here         *
-            // ******************************************       
-
-
-            // ");
-            //     }
         }
 
 
@@ -272,9 +223,9 @@ namespace CastleGrimtol.Project
             string options = "";
             if (playerInput.Contains(" "))
             {
-                var parsedInput = playerInput.Split(' ');
-                command = parsedInput[0];
-                options = parsedInput[1];
+                var parsedInput = playerInput.Split(" ");
+                command = parsedInput[0].ToLower();
+                options = parsedInput[1].ToLower();
             }
 
             switch (command)
@@ -292,7 +243,7 @@ namespace CastleGrimtol.Project
                 case "look":
                     Look();
                     break;
-                case "take":
+                case "take":               
                     PickUpItem(options);
                     break;
                 case "use":
