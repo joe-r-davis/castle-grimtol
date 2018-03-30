@@ -35,10 +35,11 @@ namespace CastleGrimtol.Project
             Room bedroom = new Room("bedroom", @"
         You wake up from a great night of slumber. Stretching slowly you roll over and see you slept through your 
         alarms and you are running later for school! You dress as fast as possible and now you need to grab your 
-        --> computer <-- (To add computer to Inventory, enter: pick up item). Go --> east <-- to your office.
+        --> computer <-- (To add computer to Inventory, enter: take computer). Go --> east <-- to your office. 
+        (to go east, enter: east).
         
         *****************************************************************************************
-        *   mini menu>> help | reset | quit | --> pick up item <-- | --> choose direction <--   *
+        *       mini menu>> help | reset | quit | --> take item <-- | --> go direction <--      *
         *****************************************************************************************
         
         
@@ -47,11 +48,11 @@ namespace CastleGrimtol.Project
             Room office = new Room("office", @"
         You and realize it is flooding from the drains due to a laundry accident. 
         Even though you are running late you can't leave until you use the stop the leak! 
-        First you much --> pick up item <-- and I wonder what you can enter to keep this water from throwing
-        a ** wrench ** in your plans...
+        First you much --> take wrench <-- and I wonder what you must ** use ** to keep this 
+        water from throwing a ** wrench ** in your plans...
 
         *****************************************************************************************
-        *   mini menu>> help | reset | quit | --> pick up item <-- | --> choose direction <--   *
+        *       mini menu>> help | reset | quit | --> take item <-- | --> go direction <--      *
         *****************************************************************************************
 
 
@@ -64,7 +65,7 @@ namespace CastleGrimtol.Project
         Time is a wastin! Better head --> west <-- to the garage...
              
         *****************************************************************************************
-        *   mini menu>> help | reset | quit | --> pick up item <-- | --> choose direction <--   *
+        *       mini menu>> help | reset | quit | --> take item <-- | --> go direction <--      *
         *****************************************************************************************
 
 
@@ -79,7 +80,7 @@ namespace CastleGrimtol.Project
         You can either take your --> bike <-- or --> your car <--.
   
         *****************************************************************************************
-        *   mini menu>> help | reset | quit | --> pick up item <-- | --> choose direction <--   *
+        *       mini menu>> help | reset | quit | --> take item <-- | --> go direction <--      *
         *****************************************************************************************
 
 
@@ -105,7 +106,7 @@ namespace CastleGrimtol.Project
         marshmallows. Or yeah something very much like that...
                   
         *****************************************************************************************
-        *   mini menu>> help | reset | quit | --> pick up item <-- | --> choose direction <--   *
+        *       mini menu>> help | reset | quit | --> take item <-- | --> go direction <--      *
         *****************************************************************************************
 
 
@@ -122,11 +123,6 @@ namespace CastleGrimtol.Project
             //bedroom directions
             bedroom.Directions.Add("east", office);
 
-            // //fix the office directions
-            // office.Directions.Add("wrench", officeFixed);
-
-            // //stairs directions
-            // officeFixed.Directions.Add("north", stairs);
 
             //garage directions
             stairs.Directions.Add("west", garage);
@@ -138,7 +134,7 @@ namespace CastleGrimtol.Project
             garage.Directions.Add("car", deathbycar);
 
             Item computer = new Item("computer", "Your laptop for school");
-            Item powerCable = new Item("powercable", "Won't work without it!");
+            Item powercable = new Item("powercable", "Won't work without it!");
             Item sandwich = new Item("sandwich", "Time to level up!");
             Item wrench = new Item("wrench", "Time to level up!");
 
@@ -147,6 +143,7 @@ namespace CastleGrimtol.Project
             bedroom.Items.Add(computer);
             stairs.Items.Add(sandwich);
             office.Items.Add(wrench);
+            office.Items.Add(powercable);
 
             return bedroom;
             //have to initialize first room
@@ -166,7 +163,7 @@ namespace CastleGrimtol.Project
             else
             {
                 System.Console.WriteLine("what there is no item found by that name");
-                                                        // joe removded + foundItem.Name
+                // joe removded + foundItem.Name
             }
         }
 
@@ -240,10 +237,13 @@ namespace CastleGrimtol.Project
                 case "inventory":
                     CurrentPlayer.InventoryCheck();
                     break;
+                case "go":
+                    CurrentRoom = CurrentRoom.Directions[options];
+                    break;
                 case "look":
                     Look();
                     break;
-                case "take":               
+                case "take":
                     PickUpItem(options);
                     break;
                 case "use":
@@ -260,8 +260,6 @@ namespace CastleGrimtol.Project
         *********************************************************  
 
             ");
-                    Console.Clear();
-                    CurrentRoom = CurrentRoom.Directions[playerInput];
                     break;
             }
 

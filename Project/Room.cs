@@ -19,7 +19,7 @@ namespace CastleGrimtol.Project
                 {
                     Description = @"
         You are still in your office dripping wet and realize you need to grab your
-        --> power cable <-- otherwise your computer will die in the middle of Friday
+        --> powercable <-- otherwise your computer will die in the middle of Friday
         Kahoot and you will experience palpable imposter syndrome! You will need
         head --> north <-- up the stairs if you have any chance of getting to school 
         on time!
@@ -28,7 +28,7 @@ namespace CastleGrimtol.Project
         *   mini menu>> help | reset | quit | --> pick up item <-- | --> choose direction <--   *
         *****************************************************************************************
         ";
-                    Directions.Add("north", rooms.Find(r => r.Name == "office"));
+                    Directions.Add("north", rooms.Find(r => r.Name == "stairs"));
                 }
             }
         }
