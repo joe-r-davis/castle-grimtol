@@ -12,7 +12,7 @@ namespace CastleGrimtol.Project
 
         public void UseItem(Item item, List<Room> rooms)
         {
-            // figure out use item here
+            // passed in parsed input then also access list rooms to add directions
             if (Name.ToLower() == "office")
             {
                 if (item.Name == "wrench")

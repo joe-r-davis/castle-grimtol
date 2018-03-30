@@ -36,7 +36,7 @@ namespace CastleGrimtol.Project
         You wake up from a great night of slumber. Stretching slowly you roll over and see you slept through your 
         alarms and you are running later for school! You dress as fast as possible and now you need to grab your 
         --> computer <-- (To add computer to Inventory, enter: take computer). Go --> east <-- to your office. 
-        (to go east, enter: east).
+        (to go east, enter: go east).
         
         *****************************************************************************************
         *       mini menu>> help | reset | quit | --> take item <-- | --> go direction <--      *
@@ -46,7 +46,7 @@ namespace CastleGrimtol.Project
         ");
 
             Room office = new Room("office", @"
-        You and realize it is flooding from the drains due to a laundry accident. 
+        Now in your offide you see it is flooding from the drains due to a laundry accident. 
         Even though you are running late you can't leave until you use the stop the leak! 
         First you much --> take wrench <-- and I wonder what you must ** use ** to keep this 
         water from throwing a ** wrench ** in your plans...
@@ -77,7 +77,7 @@ namespace CastleGrimtol.Project
 
             Room garage = new Room("garage", @"
         Even though you are running late, you see an alert on your phone that traffic is backed up. 
-        You can either take your --> bike <-- or --> your car <--.
+        You can either take ** go ** by --> bike <-- or --> car <--.
   
         *****************************************************************************************
         *       mini menu>> help | reset | quit | --> take item <-- | --> go direction <--      *
@@ -104,10 +104,7 @@ namespace CastleGrimtol.Project
         In addition to destroying the universe by using fossil fuels you have also done worse by
         not getting to school on time! The traffic jam consumes you like a campfire hungry for
         marshmallows. Or yeah something very much like that...
-                  
-        *****************************************************************************************
-        *       mini menu>> help | reset | quit | --> take item <-- | --> go direction <--      *
-        *****************************************************************************************
+
 
 
 
@@ -158,12 +155,22 @@ namespace CastleGrimtol.Project
             {
                 CurrentRoom.Items.Remove(foundItem);
                 CurrentPlayer.Inventory.Add(foundItem);
-                System.Console.WriteLine("you have picked up the " + foundItem.Name);
+                System.Console.WriteLine(@"
+                
+        **************** ITEM PICKED UP *************************************
+          *  You have picked up the " + foundItem.Name +  @"  *
+        *********************************************************************
+          
+          ");  
             }
             else
             {
-                System.Console.WriteLine("what there is no item found by that name");
-                // joe removded + foundItem.Name
+                System.Console.WriteLine(@"
+        ****************** NO SUCH ITEM *************************************
+          *  Sorry no Item by that name  *
+        *********************************************************************
+                ");
+
             }
         }
 
@@ -173,13 +180,13 @@ namespace CastleGrimtol.Project
             var foundItem = CurrentPlayer.Inventory.Find(i => i.Name == itemName);
             if (foundItem == null)
             {
-                System.Console.WriteLine("You dont have a " + itemName);
+                System.Console.WriteLine("You don't have a " + itemName);
                 return;
             }
 
             CurrentRoom.UseItem(foundItem, Rooms);
         }
-        //Have to reset room via look for min checkpoint reqs
+
         public void Look()
         {
             System.Console.WriteLine($"{CurrentRoom.Description}");
@@ -191,7 +198,7 @@ namespace CastleGrimtol.Project
             
         _________________________________________________________________________________________            
         |____HELP MENU _________________________________________________________________________|
-        |    --> direction <--                                                                  |
+        |    --> go direction <--                                                               |
         |        - Moves your player from room to room.                                         |
         |        - Directions: `north`, `south`, `east`, `west`                                 |
         |    --> take item <--                                                                  |
@@ -220,7 +227,7 @@ namespace CastleGrimtol.Project
             string options = "";
             if (playerInput.Contains(" "))
             {
-                var parsedInput = playerInput.Split(" ");
+                var parsedInput = playerInput.ToLower().Split(" ");
                 command = parsedInput[0].ToLower();
                 options = parsedInput[1].ToLower();
             }
