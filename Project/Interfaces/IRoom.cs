@@ -8,7 +8,7 @@ namespace CastleGrimtol.Project
         string Description { get; set; }
         List<Item> Items { get; set; }
 
-        void UseItem(Item item);
+        void UseItem(Item item, List<Room> rooms);
 
     }
 }

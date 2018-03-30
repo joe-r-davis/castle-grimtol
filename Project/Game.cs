@@ -8,6 +8,8 @@ namespace CastleGrimtol.Project
         public Room CurrentRoom { get; set; }
         public Player CurrentPlayer { get; set; }
 
+        private List<Room> Rooms { get; set; } = new List<Room>();
+
         public bool AtSchool { get; set; }
 
         public Game()
@@ -56,23 +58,6 @@ namespace CastleGrimtol.Project
         
         ");
 
-                    Room officeFixed = new Room("office", @"
-        You are still in your office dripping wet and realize you need to grab your
-        --> power cable <-- otherwise your computer will die in the middle of Friday
-        Kahoot and you will experience palpable imposter syndrome! You will need
-        head --> north <-- up the stairs if you have any chance of getting to school 
-        on time!
-
-        *****************************************************************************************
-        *   mini menu>> help | reset | quit | --> pick up item <-- | --> choose direction <--   *
-        *****************************************************************************************
-
-
-        
-        ");
-
-
-
             Room stairs = new Room("stairs", @"
         You climb the stairs and realize you are incredibly hungry. 
         You see a --> sandwich <-- on the counter next to your keys.
@@ -86,8 +71,8 @@ namespace CastleGrimtol.Project
 
         ");
 
-        
-        
+
+
 
             Room garage = new Room("garage", @"
         Even though you are running late, you see an alert on your phone that traffic is backed up. 
@@ -114,7 +99,7 @@ namespace CastleGrimtol.Project
 
         ");
 
-                    Room deathbycar = new Room("deathbycar", @"
+            Room deathbycar = new Room("deathbycar", @"
         In addition to destroying the universe by using fossil fuels you have also done worse by
         not getting to school on time! The traffic jam consumes you like a campfire hungry for
         marshmallows. Or yeah something very much like that...
@@ -127,15 +112,21 @@ namespace CastleGrimtol.Project
 
 
         ");
+            Rooms.Add(bedroom);
+            Rooms.Add(office);
+            Rooms.Add(stairs);
+            Rooms.Add(garage);
+            Rooms.Add(deathbycar);
+            Rooms.Add(school);
 
             //bedroom directions
             bedroom.Directions.Add("east", office);
 
-            //fix the office directions
-            office.Directions.Add("wrench", officeFixed);
+            // //fix the office directions
+            // office.Directions.Add("wrench", officeFixed);
 
-            //stairs directions
-            officeFixed.Directions.Add("north", stairs);
+            // //stairs directions
+            // officeFixed.Directions.Add("north", stairs);
 
             //garage directions
             stairs.Directions.Add("west", garage);
@@ -153,7 +144,6 @@ namespace CastleGrimtol.Project
 
 
             bedroom.Items.Add(computer);
-            officeFixed.Items.Add(powerCable);
             stairs.Items.Add(sandwich);
             office.Items.Add(wrench);
 
@@ -161,72 +151,85 @@ namespace CastleGrimtol.Project
             //have to initialize first room
         }
 
-        public void PickUpItem()
+        public void PickUpItem(string itemName)
         {
-            if (CurrentRoom.Items.Count > 0) 
+
+            Item foundItem = CurrentRoom.Items.Find(i => i.Name == itemName);
+
+            if (foundItem != null)
             {
-                Console.WriteLine("Enter 1 to add to Inventory or something else and Crash the Game (a Dumb way to lose! But it still counts!)");
-                for (int i = 0; i < CurrentRoom.Items.Count; i++)
-                {
-                    System.Console.WriteLine($@"
-        ******************************************************************************************
-            **** {i + 1}. Item Name:  {CurrentRoom.Items[i].Name} *|*|* Item Description: {CurrentRoom.Items[i].Description} ****
-        ******************************************************************************************
-                    
-                    ");
-                }
-                // Pick up the item in the room. In order to list it use int
-                int pickedUpItem;
-                string userPickedItem = Console.ReadLine();
-                int.TryParse(userPickedItem, out pickedUpItem);
-                if (pickedUpItem > -1 && pickedUpItem <= CurrentRoom.Items.Count)
-                {
-                    CurrentPlayer.Inventory.Add(CurrentRoom.Items[pickedUpItem - 1]);
-                    System.Console.WriteLine($@"
-        ***********************************************************************************    
-        *  You have added {CurrentRoom.Items[pickedUpItem - 1].Name} to your Inventory.  *
-        *  Good job not losing on a technicality!  *
-        ***********************************************************************************
-        ");
-                    //Removes the item from the room
-                    CurrentRoom.Items.RemoveAt((pickedUpItem - 1));
-                }
-                else
-                {
-                    System.Console.WriteLine(@"
-        ******************************************
-        *  Sorry please pick a valid selection.  *
-        ******************************************
-        
-        ");
-        
-                }
+                CurrentRoom.Items.Remove(foundItem);
+                CurrentPlayer.Inventory.Add(foundItem);
+                System.Console.WriteLine("you have picked up the " + foundItem.Name);
             }
             else
             {
-                System.Console.WriteLine(@"
-        ******************************************
-        *  Sorry nothing to pick up here         *
-        ******************************************       
-
-        
-        ");
+                System.Console.WriteLine("what there is no " + foundItem.Name);
             }
+
+
+            //     if (CurrentRoom.Items.Count > 0)
+            //     {
+            //         Console.WriteLine("Enter 1 to add to Inventory or something else and Crash the Game (a Dumb way to lose! But it still counts!)");
+            //         for (int i = 0; i < CurrentRoom.Items.Count; i++)
+            //         {
+            //             System.Console.WriteLine($@"
+            // ******************************************************************************************
+            //     **** {i + 1}. Item Name:  {CurrentRoom.Items[i].Name} *|*|* Item Description: {CurrentRoom.Items[i].Description} ****
+            // ******************************************************************************************
+
+            //             ");
+            //         }
+            //         // Pick up the item in the room. In order to list it use int
+            //         int pickedUpItem;
+            //         string userPickedItem = Console.ReadLine();
+            //         int.TryParse(userPickedItem, out pickedUpItem);
+            //         if (pickedUpItem > -1 && pickedUpItem <= CurrentRoom.Items.Count)
+            //         {
+            //             CurrentPlayer.Inventory.Add(CurrentRoom.Items[pickedUpItem - 1]);
+            //             System.Console.WriteLine($@"
+            // ***********************************************************************************    
+            // *  You have added {CurrentRoom.Items[pickedUpItem - 1].Name} to your Inventory.  *
+            // *  Good job not losing on a technicality!  *
+            // ***********************************************************************************
+            // ");
+            //             //Removes the item from the room
+            //             CurrentRoom.Items.RemoveAt((pickedUpItem - 1));
+            //         }
+            //         else
+            //         {
+            //             System.Console.WriteLine(@"
+            // ******************************************
+            // *  Sorry please pick a valid selection.  *
+            // ******************************************
+
+            // ");
+
+            //         }
+            //     }
+            //     else
+            //     {
+            //         System.Console.WriteLine(@"
+            // ******************************************
+            // *  Sorry nothing to pick up here         *
+            // ******************************************       
+
+
+            // ");
+            //     }
         }
 
 
         public void UseItem(string itemName)
         {
-            CurrentPlayer.ActiveItem = itemName;
-            System.Console.WriteLine(@"
-        *******************************************
-        *  You've used {CurrentPlayer.ActiveItem} *
-        *******************************************  
+            var foundItem = CurrentPlayer.Inventory.Find(i => i.Name == itemName);
+            if (foundItem == null)
+            {
+                System.Console.WriteLine("You dont have a " + itemName);
+                return;
+            }
 
-    
-      ");
-        
-        
+            CurrentRoom.UseItem(foundItem, Rooms);
         }
         //Have to reset room via look for min checkpoint reqs
         public void Look()
@@ -265,7 +268,16 @@ namespace CastleGrimtol.Project
         }
         public void CheckPlayerInput(string playerInput)
         {
-            switch (playerInput)
+            string command = playerInput;
+            string options = "";
+            if (playerInput.Contains(" "))
+            {
+                var parsedInput = playerInput.Split(' ');
+                command = parsedInput[0];
+                options = parsedInput[1];
+            }
+
+            switch (command)
             {
                 case "help":
                     Help();
@@ -280,31 +292,23 @@ namespace CastleGrimtol.Project
                 case "look":
                     Look();
                     break;
-                case "pick up item":
-                    PickUpItem();
+                case "take":
+                    PickUpItem(options);
                     break;
-                case "use item":
-                    UseItem(CurrentPlayer.AssignItem());
+                case "use":
+                    UseItem(options);
                     break;
                 case "quit":
                     System.Environment.Exit(1);
                     break;
                 default:
                     //The message the user gets when the enter the wrong choice e.g. !right choice..
-                    if (!CurrentRoom.Directions.ContainsKey(playerInput))
-                    {
-                        Console.WriteLine(@"
-
+                    Console.WriteLine(@"
         *********************************************************
         * Invalid Choice -- Try again                           *
         *********************************************************  
 
-
-
-            
             ");
-                        break;
-                    }
                     Console.Clear();
                     CurrentRoom = CurrentRoom.Directions[playerInput];
                     break;
