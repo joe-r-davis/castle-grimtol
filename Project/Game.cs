@@ -34,7 +34,7 @@ namespace CastleGrimtol.Project
             //have to initialize first room. Add anything you need here that needs to load on start. -- may as well add rooms, etc
             Room bedroom = new Room("bedroom", @"
         You wake up from a great night of slumber. Stretching slowly you roll over and see you slept through your 
-        alarms and you are running later for school! You dress as fast as possible and now you need to grab your 
+        alarms and you are running late for school! You dress as fast as possible and now you need to grab your 
         --> computer <-- (To add computer to Inventory, enter: take computer). Go --> east <-- to your office. 
         (to go east, enter: go east).
         
@@ -46,9 +46,9 @@ namespace CastleGrimtol.Project
         ");
 
             Room office = new Room("office", @"
-        Now in your offide you see it is flooding from the drains due to a laundry accident. 
-        Even though you are running late you can't leave until you use the stop the leak! 
-        First you much --> take wrench <-- and I wonder what you must ** use ** to keep this 
+        Now in your office you see it is flooding from the drains due to a laundry accident. 
+        Even though you are running late you can't leave until you are able to stop the leak! 
+        First you must --> take wrench <-- and I wonder what you must ** use ** to keep this 
         water from throwing a ** wrench ** in your plans...
 
         *****************************************************************************************
