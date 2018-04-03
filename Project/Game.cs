@@ -120,15 +120,23 @@ namespace CastleGrimtol.Project
             //bedroom directions
             bedroom.Directions.Add("east", office);
 
+            //office directions
+            office.Directions.Add("west", bedroom);
+
+            stairs.Directions.Add("west", garage);
+            stairs.Directions.Add("south", office);    
+
 
             //garage directions
-            stairs.Directions.Add("west", garage);
+            garage.Directions.Add("east", stairs);
 
-            //bike directions
+            //go by bike directions
             garage.Directions.Add("bike", school);
 
-            //car directions
+            //go by directions
             garage.Directions.Add("car", deathbycar);
+
+
 
             Item computer = new Item("computer", "Your laptop for school");
             Item powercable = new Item("powercable", "Won't work without it!");
