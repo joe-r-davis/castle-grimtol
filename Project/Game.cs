@@ -124,7 +124,7 @@ namespace CastleGrimtol.Project
             office.Directions.Add("west", bedroom);
 
             stairs.Directions.Add("west", garage);
-            stairs.Directions.Add("south", office);    
+            stairs.Directions.Add("south", office);
 
 
             //garage directions
@@ -166,10 +166,10 @@ namespace CastleGrimtol.Project
                 System.Console.WriteLine(@"
                 
         **************** ITEM PICKED UP *************************************
-          *  You have picked up the " + foundItem.Name +  @"  *
+          *  You have picked up the " + foundItem.Name + @"  *
         *********************************************************************
           
-          ");  
+          ");
             }
             else
             {
@@ -253,7 +253,20 @@ namespace CastleGrimtol.Project
                     CurrentPlayer.InventoryCheck();
                     break;
                 case "go":
-                    CurrentRoom = CurrentRoom.Directions[options];
+                    if (CurrentRoom.Directions.ContainsKey(options))
+                    {
+                        CurrentRoom = CurrentRoom.Directions[options];
+                    }
+                    else
+                    {
+                        Console.WriteLine(@"
+        *********************************************************
+        * Invalid Choice -- Try again                           *
+        *********************************************************  
+
+            ");
+                        break;
+                    }
                     break;
                 case "look":
                     Look();
